@@ -4,6 +4,7 @@ class Simulation {
         this.foodDecaySpeed = foodDecaySpeed
         this.numberOfDoves = numberOfDoves
         this.numberOfHawks = numberOfHawks
+        this.iterationCount = 0
 
         let blobs = []
 
@@ -29,6 +30,7 @@ class Simulation {
 
     iterate() {
         background(0)
+        this.iterationCount += 1
         this.population.shufflePopulation()
 
         for (let i = 0; i < this.population.blobs.length; i++) {
@@ -45,6 +47,13 @@ class Simulation {
 
         setInterval(() => {
             background(0)
+
+            textSize(26)
+            fill(255)
+            text(`Dove: ${this.population.blobs.filter(b => b instanceof Dove).length}`, 10, 30)
+            text(`Hawks: ${this.population.blobs.filter(b => b instanceof Hawk).length}`, 10, 60)
+            text(`Iteration: ${this.iterationCount}`, 10, 90)
+
             this.population.draw()
             stroke(255)
             for (let i = 0; i < this.population.food.length; i++) {
