@@ -7,4 +7,5 @@ function setup() {
     simulation = new Simulation(50, 50, 50)
     simulation.init()
     simulation.iterate()
+    delete simulation
 }

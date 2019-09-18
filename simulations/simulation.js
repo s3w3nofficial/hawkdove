@@ -45,27 +45,23 @@ class Simulation {
             this.population.food[index].blobs.push(this.population.blobs[i])
         }
 
-        setInterval(() => {
-            background(0)
+        textSize(26)
+        fill(255)
+        text(`Dove: ${this.population.blobs.filter(b => b instanceof Dove).length}`, 10, 30)
+        text(`Hawks: ${this.population.blobs.filter(b => b instanceof Hawk).length}`, 10, 60)
+        text(`Iteration: ${this.iterationCount}`, 10, 90)
 
-            textSize(26)
-            fill(255)
-            text(`Dove: ${this.population.blobs.filter(b => b instanceof Dove).length}`, 10, 30)
-            text(`Hawks: ${this.population.blobs.filter(b => b instanceof Hawk).length}`, 10, 60)
-            text(`Iteration: ${this.iterationCount}`, 10, 90)
-
-            this.population.draw()
-            stroke(255)
-            for (let i = 0; i < this.population.food.length; i++) {
-                for (let j = 0; j < this.population.food[i].blobs.length; j++) {
-                    line(this.population.food[i].blobs[j].location.x, this.population.food[i].blobs[j].location.y,
-                        this.population.food[i].location.x, this.population.food[i].location.y)
-                    let index = this.population.blobs.findIndex(b => this.population.food[i].blobs[j].location == b.location)
-                    this.population.blobs[index].moveToLocation(this.population.food[i].location)
-                    this.population.food[i].blobs[j].location = this.population.blobs[index].location
-                }
+        stroke(255)
+        for (let i = 0; i < this.population.food.length; i++) {
+            for (let j = 0; j < this.population.food[i].blobs.length; j++) {
+                let index = this.population.blobs.findIndex(b => this.population.food[i].blobs[j].location == b.location)
+                this.population.blobs[index].setPostion(this.population.food[i].location.x, this.population.food[i].location.y)
+                this.population.food[i].blobs[j].location = this.population.blobs[index].location
             }
-            noStroke()
-        }, 16)
+        }
+        noStroke()
+        
+        background(0)
+        this.population.draw()
     }
 }
